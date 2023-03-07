@@ -1,0 +1,49 @@
+@()(implicit flash: Flash, request: RequestHeader)
+
+@main("Add New Question") {
+
+<h2 class="page-heading">Add a new Question</h2>
+
+<div style="padding-right: 30px;padding-left: 70px;">
+    <form id="addPostForm" style="display: inline;" method="post" action="@routes.PostController.validatePost()">
+        @helper.CSRF.formField
+        <div class="addPostContainer">
+            <div class="add-container">
+                <div class="add-Label">
+                    <label style="margin-right:60px" for="title">Title:</label>
+                </div>
+                <div class="add-text">
+                    <textarea style="padding:20px;" id="title" name="title" rows="1" cols="200" placeholder="Title of the question"></textarea>
+                </div>
+            </div>
+            <div class="add-container">
+                <div class="add-Label">
+                    <label style="margin-right:25px" class="labels" for="question">Question:</label>
+                </div>
+                <div class="add-text">
+                    <textarea style="padding:20px;" id="question" name="question" rows="8" cols="80" placeholder="Text of the question"></textarea>
+                </div>
+            </div>
+            <div class="add-container">
+                <div class="add-Label">
+                <label style="margin-right:50px" for="code">Code:</label>
+            </div>
+                <div class="add-text">
+                    <textarea style="padding:20px;" id="code" name="code" rows="8" cols="80" placeholder="Code of the question"></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="add-decision">
+        <div>
+            <button class="button busignup" type="submit" form="addPostForm">Add</button>
+        </div>
+        <div>
+            <a href="@routes.HomeController.homePage()">
+                <button class="button bulogin">Cancel</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+}

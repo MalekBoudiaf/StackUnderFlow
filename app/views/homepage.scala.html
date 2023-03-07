@@ -1,0 +1,74 @@
+@(sharedPosts:Seq[Post], loggedIn:Boolean)(implicit flash: Flash, request: RequestHeader)
+
+@main("Home page") {
+<div class="header">
+    <h2 style="color:#0a95ff; font-size: 28px;">Fake stackoverflow</h2>
+    <div class="buttons-div">
+        @if(!loggedIn){
+            <a  href="@routes.UserController.login()"><button class="button bulogin">LOG IN</button></a>
+            <a  href="@routes.UserController.signup()"><button class="button busignup">SIGN UP</button></a>
+        }else{
+            <a  href="@routes.UserController.logout()"><button class="button bulogout">LOG OUT</button></a>
+            <a  href="@routes.PostController.addPost()"><button class="button buadd">ADD QUESTION</button></a>
+        }
+    </div>
+</div>
+<hr class="separator-comment">
+
+
+<h3 style="color:#DC143C;">@flash.get("notAllowed")</h3>
+
+<div class="parent-container" style="margin-right: 100px;margin-left: 100px;">
+    <div class="sort-container">
+        <img src="@routes.Assets.versioned("images/sort_icon.svg")" width="40" height="40"/>
+        <div class="sort-buttons">
+            <a href="@routes.HomeController.sortByDate()"><button class="buttonSort">Date</button></a>
+            <a href="@routes.HomeController.sortByVotes()"><button class="buttonSort">Votes</button></a>
+        </div>
+    </div>
+    <div>
+        <ul>
+          @for((post,i) <- sharedPosts.zipWithIndex){
+                  <li>
+                          <div class="postContainer">
+                              <div class="votes-div">
+                                  <form method="post" action="@routes.PostController.upVote()">
+                                      @helper.CSRF.formField
+                                      <input type="hidden" name="upvoteIndex" value="@i">
+                                      <button class="voteBtn" type="submit">
+                                          <img src="@routes.Assets.versioned("images/upvote.png")" width="20" height="15"/>
+                                      </button>
+                                  </form>
+                                  <p class="votesNum">@post.votes</p>
+                                  <form method="post" action="@routes.PostController.downVote()">
+                                      @helper.CSRF.formField
+                                      <input type="hidden" name="downvoteIndex" value="@i">
+                                      <button class="voteBtn" type="submit">
+                                          <img src="@routes.Assets.versioned("images/downvote.png")" width="20" height="15"/>
+                                      </button>
+                                  </form>
+                              </div>
+                              <div class="post-card">
+                                  <div class="post-div">
+                                      <p class="date">@post.date</p>
+                                      <h3 class="title">@post.title</h3>
+                                      <p class="question-home">@post.question</p>
+                                      <div class="code-container">
+                                          <code class="code">@post.code</code>
+                                      </div>
+                                      <div class="seeQuestion">
+                                          <a href="/postdetails/@post.id">
+                                              <button class="expand-bu">
+                                                  <img src="@routes.Assets.versioned("images/expand_black.svg")" width="22" height="18"/>
+                                              </button>
+                                          </a>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                  </li>
+          }
+        </ul>
+    </div>
+</div>
+}

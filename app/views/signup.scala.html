@@ -1,0 +1,47 @@
+@(userForm: Form[UserDataSignup])(implicit flash: Flash, request: MessagesRequestHeader)
+
+@main("SignUp") {
+<div class="login-page">
+    <div class="form-style">
+        <h4 class="big-heading" style="margin-bottom:20px;">Sign Up</h4>
+        @helper.form(action = routes.UserController.validateUserSignUpForm(), Symbol("class") -> "login-form") {
+        @helper.CSRF.formField
+
+        @helper.inputText(
+        userForm("username"),
+        Symbol("class") -> "text-input",
+        Symbol("label") -> "Username",
+        Symbol("placeholder") -> "Enter Username",
+        Symbol("id") -> "username",
+        Symbol("size") -> 60
+        )
+
+        @helper.inputPassword(
+        userForm("password1"),
+        Symbol("class") -> "text-input",
+        Symbol("label") -> "Password",
+        Symbol("placeholder") -> "Enter Password",
+        Symbol("id") -> "password1",
+        Symbol("size") -> 60
+        )
+
+        @helper.inputPassword(
+        userForm("password2"),
+        Symbol("class") -> "text-input",
+        Symbol("label") -> "ReType password",
+        Symbol("placeholder") -> "ReType your password",
+        Symbol("id") -> "password2",
+        Symbol("size") -> 60
+        )
+        <button type="submit">Sign Up</button>
+        <p class="message">Already registered? <a href="@routes.UserController.login()">LogIn</a></p>
+        <div style="margin-top:10px;">
+            <h3 style="color:#DC143C;">@flash.get("nomatch")</h3>
+            <h3 style="color:#DC143C;">@flash.get("userExists")</h3>
+        </div>
+        }
+    </div>
+</div>
+
+
+}

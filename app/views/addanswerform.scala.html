@@ -1,0 +1,42 @@
+@(id:Long)(implicit flash: Flash, request: RequestHeader)
+
+@main("Add New Question") {
+
+<h2 class="page-heading">Add an answer</h2>
+
+<div style="padding-right: 30px;padding-left: 70px;">
+    <form id="addAnswerForm" style="display: inline;" method="post" action="@routes.PostController.validateAnswer()">
+        @helper.CSRF.formField
+        <div class="addPostContainer">
+            <div class="add-container">
+                <div class="add-Label">
+                    <label style="margin-right:25px" class="labels" for="textAnswer">Question:</label>
+                </div>
+                <div class="add-text">
+                    <textarea style="padding:20px;" id="textAnswer" name="textAnswer" rows="8" cols="80" placeholder="Text part of answer"></textarea>
+                </div>
+            </div>
+            <div class="add-container">
+                <div class="add-Label">
+                    <label style="margin-right:50px" for="codeAnswer">Code:</label>
+                </div>
+                <div class="add-text">
+                    <textarea style="padding:20px;" id="codeAnswer" name="codeAnswer" rows="8" cols="80" placeholder="Code part of answer"></textarea>
+                </div>
+            </div>
+            <input type="hidden" name="id" value="@id">
+        </div>
+    </form>
+    <div class="add-decision">
+        <div>
+            <button class="button busignup" type="submit" form="addAnswerForm">Add</button>
+        </div>
+        <div>
+            <a href="@routes.HomeController.homePage()">
+                <button class="button bulogin">Cancel</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+}

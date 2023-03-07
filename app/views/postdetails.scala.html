@@ -1,0 +1,64 @@
+@(post: Post)(implicit flash: Flash, request: RequestHeader)
+
+@main("post details") {
+<div class="postdetails-container">
+    <h2 class="title">@post.title</h2>
+    <hr class="separator">
+    <p class="question-home">@post.question</p>
+    <div class="code-container">
+        <code class="code">def incrementVotes(index:Int):Unit={
+            val incrementedVotes = sharedPosts(index).votes + 1
+            val updatedPost = sharedPosts(index).copy(votes=incrementedVotes)
+            sharedPosts = sharedPosts.updated(index,updatedPost)
+            }
+        </code>
+    </div>
+    <hr class="separator">
+    <div class="addAnswer-container">
+        <a  href="/@post.id/addanswer"><button class="button busignup">Add answer</button></a>
+    </div>
+    <div class="comments-container">
+        <h3 style="font-weight:bold;">Comments:</h3>
+        <ul>
+            @for(comment <- post.comments){
+                <li>
+                    <div class="single-comment-container">
+                        <hr class="separator-comment">
+                        <p class="comment">@comment</p>
+                    </div>
+                </li>
+            }
+        </ul>
+
+        <div style="margin-top:20px;">
+            <form method="post" action="@routes.PostController.validateComment()">
+                @helper.CSRF.formField
+                <input type="hidden" name="id" value="@post.id">
+                <div class="add-comment-form">
+                    <textarea class="comment-text-area" placeholder="Add a comment" style="padding:10px;"  name="comment" rows="1" cols="80" ></textarea>
+                    <button class="button busignup" type="submit">Publish</button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+    <hr class="transparent-separator">
+    <div class="answers-container">
+        <div><h3 style="font-weight:bold;">Answers:</h3></div>
+        <ul>
+            @for(answer <- post.answers){
+            <li>
+                <div class="single-answer-container">
+                    <hr class="separator-comment">
+                    <p class="answer">@answer.text</p>
+                    <div class="code-container">
+                        <code class="code">@answer.code</code>
+                    </div>
+                </div>
+            </li>
+            }
+        </ul>
+    </div>
+</div>
+}

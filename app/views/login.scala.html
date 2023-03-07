@@ -1,0 +1,37 @@
+@(userForm: Form[UserData])(implicit flash: Flash, request: MessagesRequestHeader)
+
+@main("Login") {
+<div class="login-page">
+    <div class="form-style">
+        <h4 class="big-heading" style="margin-bottom:20px;">Log in</h4>
+        @helper.form(action = routes.UserController.validateUserLoginForm(), Symbol("class") -> "login-form") {
+        @helper.CSRF.formField
+
+            @helper.inputText(
+            userForm("username"),
+            Symbol("class") -> "text-input",
+            Symbol("label") -> "Username",
+            Symbol("placeholder") -> "Enter Username",
+            Symbol("id") -> "username",
+            Symbol("size") -> 60
+            )
+
+            @helper.inputPassword(
+            userForm("password"),
+            Symbol("class") -> "text-input",
+            Symbol("label") -> "password",
+            Symbol("placeholder") -> "Enter Password",
+            Symbol("id") -> "password",
+            Symbol("size") -> 60
+            )
+            <button type="submit">Log in</button>
+            <p class="message">Not registered? <a href="@routes.UserController.signup()">Sign Up</a></p>
+            <div style="margin-top:10px;">
+                <h3 style="color:#DC143C;">@flash.get("wronglogin")</h3>
+                <h3 style="color:#90EE90;">@flash.get("successSignup")</h3>
+            </div>
+        }
+    </div>
+</div>
+
+}
