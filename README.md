@@ -32,5 +32,5 @@ If you do not have the required versions, follow these links to obtain them:
 
 ## Home screen:
 
-<img width="450" alt="ui" src="https://user-images.githubusercontent.com/95744398/224302824-936ad537-3278-4383-933c-02d4a32bafc8.png">
+<img width="700" alt="ui" src="https://user-images.githubusercontent.com/95744398/224302824-936ad537-3278-4383-933c-02d4a32bafc8.png">
 
